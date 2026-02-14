@@ -2,7 +2,7 @@ export function encodeModifiedUtf8(str: string): Uint8Array {
   const bytes: number[] = []
 
   for (const char of str) {
-    const point = char.codePointAt(0)
+    const point = char.codePointAt(0)!
 
     if (point === 0x0000) {
       bytes.push(0b11000000, 0b10000000)
@@ -55,7 +55,7 @@ export function decodeModifiedUtf8(bytes: Uint8Array): string {
 
   let i = 0
   while (i < bytes.length) {
-    const byte0: number = bytes[i]
+    const byte0: number = bytes[i]!
     const byte1: number | null = bytes[i + 1] ?? null
     const byte2: number | null = bytes[i + 2] ?? null
 
@@ -168,15 +168,15 @@ export function decodeModifiedUtf8(bytes: Uint8Array): string {
   return String.fromCodePoint(...points)
 }
 
-function isContinuationByte(byte: number | null): boolean {
+function isContinuationByte(byte: number | null): byte is number {
   return byte !== null && (byte & 0b11000000) === 0b10000000
 }
 
-export function getModifiedUtf8Length(str: string): number {
+export function calculateModifiedUtf8Length(str: string): number {
   let length = 0
 
   for (const char of str) {
-    const point = char.codePointAt(0)
+    const point = char.codePointAt(0)!
 
     if (point === 0x0000) length += 2
     else if (0x0001 <= point && point <= 0x007f) length += 1

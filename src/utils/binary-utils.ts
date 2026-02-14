@@ -24,19 +24,19 @@ export function padOrTrimUint8Array(
   return result
 }
 
-export function isValidByte(value: number, unsigned = false): boolean {
+export function isByte(value: number, unsigned = false): boolean {
   if (unsigned) return 0 <= value && value <= 255
   return Number.isInteger(value) && -128 <= value && value <= 127
 }
-export function isValidShort(value: number, unsigned = false): boolean {
+export function isShort(value: number, unsigned = false): boolean {
   if (unsigned) return 0 <= value && value <= 65535
   return Number.isInteger(value) && -32768 <= value && value <= 32767
 }
-export function isValidInt(value: number, unsigned = false): boolean {
+export function isInt(value: number, unsigned = false): boolean {
   if (unsigned) return 0 <= value && value <= 4294967295
   return Number.isInteger(value) && -2147483648 <= value && value <= 2147483647
 }
-export function isValidLong(value: bigint, unsigned = false): boolean {
+export function isLong(value: bigint, unsigned = false): boolean {
   if (unsigned) return 0 <= value && value <= 18446744073709551615n
   return -9223372036854775808n <= value && value <= 9223372036854775807n
 }
